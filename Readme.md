@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Александр Белокур](https://up.htmlacademy.ru/javascript/11/user/256757).
-* Наставник: `Неизвестно`.
+* Наставник: [Сергей Буртылёв](https://htmlacademy.ru/profile/id3341).
 
 ---
 
