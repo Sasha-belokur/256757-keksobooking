@@ -44,16 +44,14 @@ var getFeatures = function (arr) {
 };
 
 var getRandomNum = function (min, max) {
-  var rand = min + Math.random() * (max + 1 - min);
-  rand = Math.floor(rand);
-  return rand;
+  return Math.floor(min + Math.random() * (max + 1 - min));
 };
 
-var Advertisement = function () {
+var Advertisement = function (i) {
   Advertisement.counter++;
 
   this.author = {
-    avatar: 'img/avatars/user0' + Advertisement.counter + '.png'
+    avatar: 'img/avatars/user0' + (i + 1) + '.png'
   };
 
   this.location = {
@@ -62,7 +60,7 @@ var Advertisement = function () {
   };
 
   this.offer = {
-    title: adTemplate.title[Advertisement.counter - 1],
+    title: adTemplate.title[i],
     adress: this.location.x + ', ' + this.location.y,
     price: getRandomNum(adTemplate.price.min, adTemplate.price.max),
     type: adTemplate.type[getRandomNum(0, adTemplate.type.length - 1)],
@@ -78,5 +76,5 @@ var Advertisement = function () {
 Advertisement.counter = 0;
 
 for (var i = 0; i < 8; i++) {
-  advertisements.push(new Advertisement());
+  advertisements.push(new Advertisement(i));
 }
