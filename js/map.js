@@ -16,17 +16,29 @@ var adTemplate = {
   }
 };
 
-var getFeatures = function () {
-  var featuresAmount = getRandomNum(1, adTemplate.features.length - 1);
-  var features = [];
-  var feature = '';
+function shuffleArray(array) {
+  var arr = array.slice();
+  var m = arr.length;
+  var t = '';
+  var i = 0;
 
-  while (features.length < featuresAmount) {
-    feature = adTemplate.features[getRandomNum(0, adTemplate.features.length - 1)];
-    if (!features.includes(feature)) {
-      features.push(feature);
-    }
+  while (m) {
+    i = Math.floor(Math.random() * m--);
+
+    t = arr[m];
+    arr[m] = arr[i];
+    arr[i] = t;
   }
+
+  return arr;
+}
+
+var getFeatures = function (arr) {
+  var featuresAmount = getRandomNum(1, adTemplate.features.length);
+  var features = arr.slice();
+
+  features = shuffleArray(features);
+  features.length = featuresAmount;
 
   return features;
 };
@@ -58,7 +70,7 @@ var Advertisement = function () {
     guests: getRandomNum(1, adTemplate.maxGuests),
     checkin: getRandomNum(adTemplate.time.min, adTemplate.time.max) + ':00',
     checkout: getRandomNum(adTemplate.time.min, adTemplate.time.max) + ':00',
-    features: getFeatures(),
+    features: getFeatures(adTemplate.features),
     description: '',
     photos: ''
   };
