@@ -16,6 +16,8 @@ var adTemplate = {
   }
 };
 
+var mapPins = document.querySelector('.map__pins');
+
 function shuffleArray(array) {
   var arr = array.slice();
   var m = arr.length;
@@ -78,3 +80,26 @@ Advertisement.counter = 0;
 for (var i = 0; i < 8; i++) {
   advertisements.push(new Advertisement(i));
 }
+
+document.querySelector('.map').classList.remove('map--faded');
+
+var createPin = function (ad) {
+  var pin = document.createElement('button');
+  pin.classList.add('map__pin');
+  pin.style.cssText = 'left: ' + (ad.location.x - 20) + 'px; top:' + (ad.location.y - 72) + 'px;';
+  pin.innerHTML = '<img src="' + ad.author.avatar + '" width="40" height="40" draggable="false">';
+
+  return pin;
+};
+
+var renderPins = function () {
+  var m = advertisements.length;
+  var fragment = document.createDocumentFragment();
+  for (i = 0; i < m; i++) {
+    fragment.appendChild(createPin(advertisements[i]));
+  }
+
+  mapPins.appendChild(fragment);
+};
+
+renderPins();
