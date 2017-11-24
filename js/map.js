@@ -15,8 +15,8 @@ var adTemplate = {
     max: 14
   }
 };
-
 var mapPins = document.querySelector('.map__pins');
+var map = document.querySelector('.map');
 
 function shuffleArray(array) {
   var arr = array.slice();
@@ -102,4 +102,41 @@ var renderPins = function () {
   mapPins.appendChild(fragment);
 };
 
+var createAdvertisement = function () {
+  var template = document.querySelector('template').content;
+  var advertisementElement = template.cloneNode(true);
+  var featuresAmount = advertisements[i].offer.features.length;
+  var adFeatureList = advertisementElement.querySelector('.popup__features');
+
+  advertisementElement.querySelector('h3').textContent = advertisements[i].offer.title;
+  advertisementElement.querySelector('p > small').textContent = advertisements[i].offer.address;
+  advertisementElement.querySelector('.popup__price').innerHTML = advertisements[i].offer.price + '&#x20bd;/ночь';
+  advertisementElement.querySelector('h4').textContent = advertisements[i].offer.type;
+  advertisementElement.querySelector('h4 + p').textContent = 'комнаты: ' + advertisements[i].offer.rooms + ' для ' + advertisements[i].offer.guests + ' гостей';
+  advertisementElement.querySelector('h4 + p + p').textContent = 'Заезд после ' + advertisements[i].offer.checkin + ', выезд до ' + advertisements[i].offer.checkout;
+  advertisementElement.querySelector('.popup__features + p').textContent = advertisements[i].offer.description;
+  advertisementElement.querySelector('.popup__avatar').src = advertisements[i].author.avatar;
+
+  adFeatureList.innerHTML = '';
+  for (var j = 0; j < featuresAmount; j++) {
+    var feature = document.createElement('li');
+    feature.className = 'feature feature--' + advertisements[i].offer.features[j];
+    adFeatureList.appendChild(feature);
+  }
+
+  return advertisementElement;
+};
+
+var renderAdvertisements = function () {
+  var m = advertisements.length;
+  var fragment = document.createDocumentFragment();
+
+  for (i = 0; i < m; i++) {
+    fragment.appendChild(createAdvertisement());
+  }
+
+  map.appendChild(fragment);
+};
+
 renderPins();
+renderAdvertisements();
