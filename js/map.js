@@ -130,20 +130,15 @@ var fillMap = function () {
   var map = document.querySelector('.map');
   var advertisements = generateAdvertisements(8);
 
-  renderAdvertisements(map, advertisements);
+  renderAdvertisement(map, advertisements[0]);
   renderPins(advertisements);
 
   map.classList.remove('map--faded');
 
 };
 
-var renderAdvertisements = function (map, advertisements) {
-  var fragment = document.createDocumentFragment();
+var renderAdvertisement = function (map, advertisement) {
 
-  for (var i = 0; i < advertisements.length; i++) {
-    fragment.appendChild(createAdvertisement(advertisements[i]));
-  }
-
-  map.appendChild(fragment);
+  map.appendChild(createAdvertisement(advertisement));
 };
 fillMap();
