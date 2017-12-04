@@ -141,4 +141,26 @@ var renderAdvertisement = function (map, advertisement) {
 
   map.appendChild(createAdvertisement(advertisement));
 };
-fillMap();
+
+var activateForm = function () {
+  var form = document.querySelector('.notice__form');
+  var formfieldsets = document.querySelectorAll('fieldset');
+
+  form.classList.remove('notice__form--disabled');
+  formfieldsets.forEach(function (fieldset) {
+    fieldset.disabled = false;
+  });
+};
+
+var mainPinMouseupHandler = function () {
+  fillMap();
+  activateForm();
+};
+
+var addEventListeners = function () {
+  var mainPin = document.querySelector('.map__pin--main');
+
+  mainPin.addEventListener('mouseup', mainPinMouseupHandler);
+};
+
+addEventListeners();
