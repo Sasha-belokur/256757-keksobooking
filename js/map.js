@@ -81,11 +81,33 @@ var generateAdvertisements = function (amount) {
   return advertisements;
 };
 
+var activePin = function (pin) {
+  var activedPin = document.querySelector('.map__pin--active');
+
+  if (activedPin) {
+    activedPin.classList.remove('map__pin--active');
+  }
+  pin.classList.add('map__pin--active');
+};
+
+var openPopup = function (ad) {
+  renderAdvertisement(ad);
+};
+
+var pinClickHandler = function (ad, pin) {
+  activePin(pin);
+  openPopup(ad);
+};
+
 var createPin = function (ad) {
   var pin = document.createElement('button');
   pin.classList.add('map__pin');
   pin.style.cssText = 'left: ' + (ad.location.x - 20) + 'px; top:' + (ad.location.y - 72) + 'px;';
   pin.innerHTML = '<img src="' + ad.author.avatar + '" width="40" height="40" draggable="false">';
+
+  pin.addEventListener('click', function () {
+    pinClickHandler(ad, pin);
+  });
 
   return pin;
 };
@@ -101,11 +123,24 @@ var renderPins = function (ads) {
   mapPins.appendChild(fragment);
 };
 
+var closePopup = function () {
+  var popup = document.querySelector('.popup');
+  var activedPin = document.querySelector('.map__pin--active');
+
+  activedPin.classList.remove('map__pin--active');
+  popup.remove();
+};
+
+var closeBtnClickHandler = function () {
+  closePopup();
+};
+
 var createAdvertisement = function (ad) {
   var template = document.querySelector('template').content;
   var adElement = template.cloneNode(true);
   var featuresAmount = ad.offer.features.length;
   var adFeatureList = adElement.querySelector('.popup__features');
+  var closeBtn = adElement.querySelector('.popup__close');
 
   adElement.querySelector('h3').textContent = ad.offer.title;
   adElement.querySelector('p > small').textContent = ad.offer.address;
@@ -115,6 +150,8 @@ var createAdvertisement = function (ad) {
   adElement.querySelector('h4 + p + p').textContent = 'Заезд после ' + ad.offer.checkin + ', выезд до ' + ad.offer.checkout;
   adElement.querySelector('.popup__features + p').textContent = ad.offer.description;
   adElement.querySelector('.popup__avatar').src = ad.author.avatar;
+
+  closeBtn.addEventListener('click', closeBtnClickHandler);
 
   adFeatureList.innerHTML = '';
   for (var j = 0; j < featuresAmount; j++) {
@@ -130,14 +167,14 @@ var fillMap = function () {
   var map = document.querySelector('.map');
   var advertisements = generateAdvertisements(8);
 
-  renderAdvertisement(map, advertisements[0]);
   renderPins(advertisements);
 
   map.classList.remove('map--faded');
 
 };
 
-var renderAdvertisement = function (map, advertisement) {
+var renderAdvertisement = function (advertisement) {
+  var map = document.querySelector('.map');
 
   map.appendChild(createAdvertisement(advertisement));
 };
@@ -153,6 +190,9 @@ var activateForm = function () {
 };
 
 var mainPinMouseupHandler = function () {
+  var mainPin = document.querySelector('.map__pin--main');
+
+  mainPin.removeEventListener('mouseup', mainPinMouseupHandler);
   fillMap();
   activateForm();
 };
