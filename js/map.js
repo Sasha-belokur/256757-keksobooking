@@ -83,6 +83,11 @@ var generateAdvertisements = function (amount) {
 
 var activePin = function (pin) {
   var activedPin = document.querySelector('.map__pin--active');
+  var popup = document.querySelector('.popup');
+
+  if (popup) {
+    closePopup();
+  }
 
   if (activedPin) {
     activedPin.classList.remove('map__pin--active');
