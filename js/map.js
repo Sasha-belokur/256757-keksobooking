@@ -91,6 +91,9 @@ var MAP_TYPE = {
 };
 var advertisements = generateAdvertisements(8);
 var map = document.querySelector('.map');
+var timeInInput = document.querySelector('#timein');
+var timeOutInput = document.querySelector('#timeout');
+var mainPin = document.querySelector('.map__pin--main');
 var activePin = null;
 var activePopup = null;
 var closeBtn = null;
@@ -216,17 +219,66 @@ var activateForm = function () {
   });
 };
 
+var alignTimeIn = function () {
+  timeInInput.value = timeOutInput.value;
+};
+
+var alignTimeOut = function () {
+  timeOutInput.value = timeInInput.value;
+};
+
+var timeInputHandler = function (evt) {
+  var input = evt.currentTarget;
+
+  if (input.name === 'timein') {
+    alignTimeOut();
+  } else if (input.name === 'timeout') {
+    alignTimeIn();
+  }
+};
+
+var setMinPrice = function (price) {
+  var priceInput = document.querySelector('#price');
+
+  priceInput.setAttribute('min', price);
+};
+
+var typeInputHandler = function (evt) {
+  var type = evt.currentTarget.value;
+  var minPrice;
+
+  switch (type) {
+    case 'flat':
+      minPrice = 1000;
+      break;
+    case 'house':
+      minPrice = 5000;
+      break;
+    case 'palace':
+      minPrice = 10000;
+      break;
+    default:
+      minPrice = 0;
+      break;
+  }
+
+  setMinPrice(minPrice);
+};
+
 var mainPinMouseupHandler = function () {
-  var mainPin = document.querySelector('.map__pin--main');
   fillMap();
   activateForm();
   mainPin.removeEventListener('mouseup', mainPinMouseupHandler);
 };
 
 var addEventListeners = function () {
-  var mainPin = document.querySelector('.map__pin--main');
+  var typeInput = document.querySelector('#type');
 
   mainPin.addEventListener('mouseup', mainPinMouseupHandler);
+  timeInInput.addEventListener('input', timeInputHandler);
+  timeOutInput.addEventListener('input', timeInputHandler);
+
+  typeInput.addEventListener('input', typeInputHandler);
 };
 
 addEventListeners();
