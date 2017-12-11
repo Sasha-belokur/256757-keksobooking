@@ -265,6 +265,36 @@ var typeInputHandler = function (evt) {
   setMinPrice(minPrice);
 };
 
+var changeCapacityOptions = function (amount) {
+  var capacityOptions = Array.from(document.querySelector('#capacity'));
+  if (amount === '100') {
+    capacityOptions.forEach(function (option) {
+      if (option.value > 0) {
+        option.hidden = true;
+      } else {
+        option.hidden = false;
+      }
+    });
+  } else {
+    capacityOptions.forEach(function (option) {
+      if (amount < option.value || option.value === '0') {
+        option.hidden = true;
+      } else {
+        option.hidden = false;
+      }
+    });
+  }
+
+
+};
+
+var roomsInputHandler = function (evt) {
+  var guestsAmount = evt.currentTarget.value;
+
+
+  changeCapacityOptions(guestsAmount);
+};
+
 var mainPinMouseupHandler = function () {
   fillMap();
   activateForm();
@@ -273,12 +303,14 @@ var mainPinMouseupHandler = function () {
 
 var addEventListeners = function () {
   var typeInput = document.querySelector('#type');
+  var roomsInput = document.querySelector('#room_number');
 
   mainPin.addEventListener('mouseup', mainPinMouseupHandler);
   timeInInput.addEventListener('input', timeInputHandler);
   timeOutInput.addEventListener('input', timeInputHandler);
 
   typeInput.addEventListener('input', typeInputHandler);
+  roomsInput.addEventListener('input', roomsInputHandler);
 };
 
 addEventListeners();
