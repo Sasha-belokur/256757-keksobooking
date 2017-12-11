@@ -302,12 +302,47 @@ var roomsInputHandler = function (evt) {
   changeCapacityOptions(guestsAmount);
 };
 
-var inputInvalidHandler = function (evt) {
-  evt.currentTarget.style.border = '1px solid red';
+var titleInputInvalidHandler = function (evt) {
+  var input = evt.currentTarget;
+
+  input.style.border = '1px solid red';
+  input.setCustomValidity('Длина заголовка должна быть от 30 до 100 симоволов');
+
 };
 
-var inputHandler = function (evt) {
-  evt.currentTarget.style.border = '';
+var titleInputHandler = function (evt) {
+  var input = evt.currentTarget;
+  var minLenght = input.minLength;
+
+  if (minLenght && input.value.length < minLenght) {
+    input.style.border = '1px solid red';
+    input.setCustomValidity('Длина заголовка должна быть от 30 до 100 симоволов');
+  } else {
+    input.style.border = '';
+    input.setCustomValidity('');
+  }
+};
+
+var priceInputInvalidHandler = function (evt) {
+  var input = evt.currentTarget;
+  var minPrice = input.min;
+
+  input.style.border = '1px solid red';
+  input.setCustomValidity('Цена должна быть не менее ' + minPrice);
+
+};
+
+var priceInputHandler = function (evt) {
+  var input = evt.currentTarget;
+  var minPrice = input.min;
+
+  if (minPrice && input.value < minPrice) {
+    input.style.border = '1px solid red';
+    input.setCustomValidity('Цена должна быть не менее ' + minPrice);
+  } else {
+    input.style.border = '';
+    input.setCustomValidity('');
+  }
 };
 
 var mainPinMouseupHandler = function () {
@@ -319,7 +354,8 @@ var mainPinMouseupHandler = function () {
 var addEventListeners = function () {
   var typeInput = document.querySelector('#type');
   var roomsInput = document.querySelector('#room_number');
-  var newAdInputs = document.querySelectorAll('.notice__form input');
+  var titleInput = document.querySelector('#title');
+  var priceInput = document.querySelector('#price');
 
   mainPin.addEventListener('mouseup', mainPinMouseupHandler);
   timeInInput.addEventListener('input', timeInputHandler);
@@ -327,10 +363,12 @@ var addEventListeners = function () {
 
   typeInput.addEventListener('input', typeInputHandler);
   roomsInput.addEventListener('input', roomsInputHandler);
-  newAdInputs.forEach(function (input) {
-    input.addEventListener('invalid', inputInvalidHandler);
-    input.addEventListener('input', inputHandler);
-  });
+
+  titleInput.addEventListener('invalid', titleInputInvalidHandler);
+  titleInput.addEventListener('input', titleInputHandler);
+
+  priceInput.addEventListener('invalid', priceInputInvalidHandler);
+  priceInput.addEventListener('input', priceInputHandler);
 };
 
 addEventListeners();
