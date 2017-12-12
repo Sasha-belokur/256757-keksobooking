@@ -18,22 +18,12 @@
     return arr;
   };
 
-  var getFeatures = function (features) {
-    var featuresAmount = getRandomNum(1, features.length);
-    var randomFeatures = features.slice();
-
-    randomFeatures = shuffleArray(randomFeatures);
-    randomFeatures.length = featuresAmount;
-
-    return randomFeatures;
-  };
-
   var getRandomNum = function (min, max) {
     return Math.floor(min + Math.random() * (max + 1 - min));
   };
 
   window.util = {
-    getFeatures: getFeatures,
+    shuffleArray: shuffleArray,
     getRandomNum: getRandomNum
   };
 })();

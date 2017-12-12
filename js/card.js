@@ -45,7 +45,6 @@
   };
 
   var close = function () {
-    window.pin.deactivate();
     activePopup.remove();
     activePopup = null;
   };

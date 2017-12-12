@@ -3,6 +3,16 @@
 (function () {
   var NUMBER_OF_ADVERTISEMENTS = 8;
 
+  var getFeatures = function (features) {
+    var featuresAmount = window.util.getRandomNum(1, features.length);
+    var randomFeatures = features.slice();
+
+    randomFeatures = window.util.shuffleArray(randomFeatures);
+    randomFeatures.length = featuresAmount;
+
+    return randomFeatures;
+  };
+
   var Advertisement = function (i) {
     var adTemplate = {
       title: ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'],
@@ -40,7 +50,7 @@
       guests: window.util.getRandomNum(1, adTemplate.maxGuests),
       checkin: window.util.getRandomNum(adTemplate.time.min, adTemplate.time.max) + ':00',
       checkout: window.util.getRandomNum(adTemplate.time.min, adTemplate.time.max) + ':00',
-      features: window.util.getFeatures(adTemplate.features),
+      features: getFeatures(adTemplate.features),
       description: '',
       photos: ''
     };

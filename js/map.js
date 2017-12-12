@@ -28,6 +28,8 @@ var renderPins = function (ads) {
 
 var closeBtnClickHandler = function () {
   window.card.close();
+  window.pin.deactivate();
+
   window.card.closeBtn.removeEventListener('click', closeBtnClickHandler);
   document.removeEventListener('keypress', closeEscPressHandler);
 };
@@ -35,6 +37,8 @@ var closeBtnClickHandler = function () {
 var closeEscPressHandler = function (evt) {
   if (evt.keyCode === ESC_KEYCODE) {
     window.card.close();
+    window.pin.deactivate();
+
     document.removeEventListener('keypress', closeEscPressHandler);
     window.card.closeBtn.removeEventListener('click', closeBtnClickHandler);
   }
@@ -51,8 +55,4 @@ var mainPinMouseupHandler = function () {
   mainPin.removeEventListener('mouseup', mainPinMouseupHandler);
 };
 
-var addEventListeners = function () {
-  mainPin.addEventListener('mouseup', mainPinMouseupHandler);
-};
-
-addEventListeners();
+mainPin.addEventListener('mouseup', mainPinMouseupHandler);
