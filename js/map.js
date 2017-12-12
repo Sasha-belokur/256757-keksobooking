@@ -1,34 +1,4 @@
 'use strict';
-function shuffleArray(array) {
-  var arr = array.slice();
-  var amount = arr.length;
-  var temp = '';
-  var i = 0;
-
-  while (amount) {
-    i = Math.floor(Math.random() * amount--);
-
-    temp = arr[amount];
-    arr[amount] = arr[i];
-    arr[i] = temp;
-  }
-
-  return arr;
-}
-
-var getFeatures = function (features) {
-  var featuresAmount = getRandomNum(1, features.length);
-  var randomFeatures = features.slice();
-
-  randomFeatures = shuffleArray(randomFeatures);
-  randomFeatures.length = featuresAmount;
-
-  return randomFeatures;
-};
-
-var getRandomNum = function (min, max) {
-  return Math.floor(min + Math.random() * (max + 1 - min));
-};
 
 var Advertisement = function (i) {
   var adTemplate = {
@@ -54,20 +24,20 @@ var Advertisement = function (i) {
   };
 
   this.location = {
-    x: getRandomNum(300, 900),
-    y: getRandomNum(100, 500)
+    x: window.util.getRandomNum(300, 900),
+    y: window.util.getRandomNum(100, 500)
   };
 
   this.offer = {
     title: adTemplate.title[i],
     adress: this.location.x + ', ' + this.location.y,
-    price: getRandomNum(adTemplate.price.min, adTemplate.price.max),
-    type: adTemplate.type[getRandomNum(0, adTemplate.type.length - 1)],
-    rooms: getRandomNum(1, adTemplate.maxRooms),
-    guests: getRandomNum(1, adTemplate.maxGuests),
-    checkin: getRandomNum(adTemplate.time.min, adTemplate.time.max) + ':00',
-    checkout: getRandomNum(adTemplate.time.min, adTemplate.time.max) + ':00',
-    features: getFeatures(adTemplate.features),
+    price: window.util.getRandomNum(adTemplate.price.min, adTemplate.price.max),
+    type: adTemplate.type[window.util.getRandomNum(0, adTemplate.type.length - 1)],
+    rooms: window.util.getRandomNum(1, adTemplate.maxRooms),
+    guests: window.util.getRandomNum(1, adTemplate.maxGuests),
+    checkin: window.util.getRandomNum(adTemplate.time.min, adTemplate.time.max) + ':00',
+    checkout: window.util.getRandomNum(adTemplate.time.min, adTemplate.time.max) + ':00',
+    features: window.util.getFeatures(adTemplate.features),
     description: '',
     photos: ''
   };
