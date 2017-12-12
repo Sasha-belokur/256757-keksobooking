@@ -1,65 +1,12 @@
 'use strict';
 
-var Advertisement = function (i) {
-  var adTemplate = {
-    title: ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'],
-    price: {
-      min: 1000,
-      max: 1000000
-    },
-    type: ['flat', 'house', 'bungalo'],
-    features: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-    maxRooms: 5,
-    maxGuests: 20,
-    time: {
-      min: 12,
-      max: 14
-    }
-  };
-
-  this.id = i;
-
-  this.author = {
-    avatar: 'img/avatars/user0' + (i + 1) + '.png'
-  };
-
-  this.location = {
-    x: window.util.getRandomNum(300, 900),
-    y: window.util.getRandomNum(100, 500)
-  };
-
-  this.offer = {
-    title: adTemplate.title[i],
-    adress: this.location.x + ', ' + this.location.y,
-    price: window.util.getRandomNum(adTemplate.price.min, adTemplate.price.max),
-    type: adTemplate.type[window.util.getRandomNum(0, adTemplate.type.length - 1)],
-    rooms: window.util.getRandomNum(1, adTemplate.maxRooms),
-    guests: window.util.getRandomNum(1, adTemplate.maxGuests),
-    checkin: window.util.getRandomNum(adTemplate.time.min, adTemplate.time.max) + ':00',
-    checkout: window.util.getRandomNum(adTemplate.time.min, adTemplate.time.max) + ':00',
-    features: window.util.getFeatures(adTemplate.features),
-    description: '',
-    photos: ''
-  };
-};
-
-var generateAdvertisements = function (amount) {
-  var advertisements = [];
-
-  for (var i = 0; i < amount; i++) {
-    advertisements.push(new Advertisement(i));
-  }
-
-  return advertisements;
-};
-
 //
 var MAP_TYPE = {
   'flat': 'Квартира',
   'house': 'Дом',
   'bungalo': 'Лачуга'
 };
-var advertisements = generateAdvertisements(8);
+
 var map = document.querySelector('.map');
 var timeInInput = document.querySelector('#timein');
 var timeOutInput = document.querySelector('#timeout');
@@ -90,7 +37,7 @@ var pinClickHandler = function (evt) {
   var pin = evt.currentTarget;
   var id = pin.getAttribute('data-id');
   activatePin(pin);
-  renderAdvertisement(advertisements[id]);
+  renderAdvertisement(window.data.advertisements[id]);
 };
 
 var createPin = function (ad) {
@@ -166,7 +113,7 @@ var createAdvertisement = function (ad) {
 };
 
 var fillMap = function () {
-  renderPins(advertisements);
+  renderPins(window.data.advertisements);
   map.classList.remove('map--faded');
 };
 
