@@ -1,58 +1,60 @@
 'use strict';
-var map = document.querySelector('.map');
-var mainPin = document.querySelector('.map__pin--main');
-var ESC_KEYCODE = 27;
+(function () {
+  var map = document.querySelector('.map');
+  var mainPin = document.querySelector('.map__pin--main');
+  var ESC_KEYCODE = 27;
 
-var pinClickHandler = function (evt) {
-  var pin = evt.currentTarget;
-  var id = pin.getAttribute('data-id');
-  window.pin.activate(pin);
+  var pinClickHandler = function (evt) {
+    var pin = evt.currentTarget;
+    var id = pin.getAttribute('data-id');
+    window.pin.activate(pin);
 
-  window.card.open(window.data.advertisements[id], map);
-  window.card.closeBtn.addEventListener('click', closeBtnClickHandler);
-  document.addEventListener('keydown', closeEscPressHandler);
-};
+    window.card.open(window.data.advertisements[id], map);
+    window.card.closeBtn.addEventListener('click', closeBtnClickHandler);
+    document.addEventListener('keydown', closeEscPressHandler);
+  };
 
-var renderPins = function (ads) {
-  var mapPins = document.querySelector('.map__pins');
-  var fragment = document.createDocumentFragment();
+  var renderPins = function (ads) {
+    var mapPins = document.querySelector('.map__pins');
+    var fragment = document.createDocumentFragment();
 
-  for (var i = 0; i < ads.length; i++) {
-    var newPin = window.pin.create(ads[i]);
-    newPin.addEventListener('click', pinClickHandler);
-    fragment.appendChild(newPin);
-  }
+    for (var i = 0; i < ads.length; i++) {
+      var newPin = window.pin.create(ads[i]);
+      newPin.addEventListener('click', pinClickHandler);
+      fragment.appendChild(newPin);
+    }
 
-  mapPins.appendChild(fragment);
-};
+    mapPins.appendChild(fragment);
+  };
 
-var closeBtnClickHandler = function () {
-  window.card.close();
-  window.pin.deactivate();
-
-  window.card.closeBtn.removeEventListener('click', closeBtnClickHandler);
-  document.removeEventListener('keypress', closeEscPressHandler);
-};
-
-var closeEscPressHandler = function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
+  var closeBtnClickHandler = function () {
     window.card.close();
     window.pin.deactivate();
 
-    document.removeEventListener('keypress', closeEscPressHandler);
     window.card.closeBtn.removeEventListener('click', closeBtnClickHandler);
-  }
-};
+    document.removeEventListener('keypress', closeEscPressHandler);
+  };
 
-var fillMap = function () {
-  renderPins(window.data.advertisements);
-  map.classList.remove('map--faded');
-};
+  var closeEscPressHandler = function (evt) {
+    if (evt.keyCode === ESC_KEYCODE) {
+      window.card.close();
+      window.pin.deactivate();
 
-var mainPinMouseupHandler = function () {
-  fillMap();
-  window.form.activate();
-  mainPin.removeEventListener('mouseup', mainPinMouseupHandler);
-};
+      document.removeEventListener('keypress', closeEscPressHandler);
+      window.card.closeBtn.removeEventListener('click', closeBtnClickHandler);
+    }
+  };
 
-mainPin.addEventListener('mouseup', mainPinMouseupHandler);
+  var fillMap = function () {
+    renderPins(window.data.advertisements);
+    map.classList.remove('map--faded');
+  };
+
+  var mainPinMouseupHandler = function () {
+    fillMap();
+    window.form.activate();
+    mainPin.removeEventListener('mouseup', mainPinMouseupHandler);
+  };
+
+  mainPin.addEventListener('mouseup', mainPinMouseupHandler);  
+})();
