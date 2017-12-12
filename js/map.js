@@ -7,44 +7,15 @@ var map = document.querySelector('.map');
 var timeInInput = document.querySelector('#timein');
 var timeOutInput = document.querySelector('#timeout');
 var mainPin = document.querySelector('.map__pin--main');
-var activePin = null;
-
-var deactivatePin = function () {
-  activePin.classList.remove('map__pin--active');
-  activePin = null;
-};
-
-var activatePin = function (pin) {
-  if (activePin === pin) {
-    return;
-  }
-
-  if (activePin) {
-    deactivatePin();
-  }
-
-  activePin = pin;
-  pin.classList.add('map__pin--active');
-};
 
 var pinClickHandler = function (evt) {
   var pin = evt.currentTarget;
   var id = pin.getAttribute('data-id');
-  activatePin(pin);
+  window.pin.activate(pin);
+
   window.card.open(window.data.advertisements[id], map);
-};
-
-var createPin = function (ad) {
-  var pin = document.createElement('button');
-  pin.classList.add('map__pin');
-  pin.setAttribute('data-id', ad.id);
-
-  pin.style.cssText = 'left: ' + (ad.location.x - 20) + 'px; top:' + (ad.location.y - 72) + 'px;';
-  pin.innerHTML = '<img src="' + ad.author.avatar + '" width="40" height="40" draggable="false">';
-
-  pin.addEventListener('click', pinClickHandler);
-
-  return pin;
+  window.card.closeBtn.addEventListener('click', closeBtnClickHandler);
+  document.addEventListener('keydown', closeEscPressHandler);
 };
 
 var renderPins = function (ads) {
@@ -52,21 +23,23 @@ var renderPins = function (ads) {
   var fragment = document.createDocumentFragment();
 
   for (var i = 0; i < ads.length; i++) {
-    fragment.appendChild(createPin(ads[i]));
+    var newPin = window.pin.create(ads[i]);
+    newPin.addEventListener('click', pinClickHandler);
+    fragment.appendChild(newPin);
   }
 
   mapPins.appendChild(fragment);
 };
 
 var closeBtnClickHandler = function () {
-  window.card.closePopup();
+  window.card.close();
   window.card.closeBtn.removeEventListener('click', closeBtnClickHandler);
   document.removeEventListener('keypress', closeEscPressHandler);
 };
 
 var closeEscPressHandler = function (evt) {
   if (evt.keyCode === 27) {
-    window.card.closePopup();
+    window.card.close();
     document.removeEventListener('keypress', closeEscPressHandler);
     window.card.closeBtn.removeEventListener('click', closeBtnClickHandler);
   }

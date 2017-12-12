@@ -23,6 +23,7 @@
     var adElement = template.cloneNode(true);
     var featuresAmount = ad.offer.features.length;
     var adFeatureList = adElement.querySelector('.popup__features');
+    window.card.closeBtn = adElement.querySelector('.popup__close');
 
     adElement.querySelector('h3').textContent = ad.offer.title;
     adElement.querySelector('p > small').textContent = ad.offer.address;
