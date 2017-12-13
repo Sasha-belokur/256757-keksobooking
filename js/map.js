@@ -16,6 +16,14 @@
     document.addEventListener('keydown', closeEscPressHandler);
   };
 
+  var clearMapPins = function () {
+    var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+
+    pins.forEach(function (pin) {
+      pin.remove();
+    });
+  };
+
   var renderPins = function (ads) {
     var mapPins = document.querySelector('.map__pins');
     var fragment = document.createDocumentFragment();
@@ -26,6 +34,7 @@
       fragment.appendChild(newPin);
     }
 
+    clearMapPins();
     mapPins.appendChild(fragment);
   };
 
@@ -52,8 +61,10 @@
   };
 
   var mainPinMouseUpHandler = function (evt) {
-
     evt.preventDefault();
+
+    activateMap();
+    renderPins(window.data.advertisements);
 
     document.removeEventListener('mousemove', mainPinMouseMoveHandler);
     document.removeEventListener('mouseup', mainPinMouseUpHandler);
