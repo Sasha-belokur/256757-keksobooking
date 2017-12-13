@@ -4,6 +4,7 @@
   var mainPin = document.querySelector('.map__pin--main');
   var ESC_KEYCODE = 27;
   var mainPinCoords = null;
+  var adressInput = document.querySelector('#address');
 
   var pinClickHandler = function (evt) {
     var pin = evt.currentTarget;
@@ -50,17 +51,20 @@
     map.classList.remove('map--faded');
   };
 
-  var mainPinMouseupHandler = function () {
-    renderPins(window.data.advertisements);
-    window.form.activate();
+  var mainPinMouseUpHandler = function (evt) {
 
-    mainPin.removeEventListener('mousemove', mainPinMousemoveHandler);
-    mainPin.removeEventListener('mouseup', mainPinMouseupHandler);
+    evt.preventDefault();
+
+    document.removeEventListener('mousemove', mainPinMouseMoveHandler);
+    document.removeEventListener('mouseup', mainPinMouseUpHandler);
   };
 
-  var mainPinMousemoveHandler = function (evt) {
+  var mainPinMouseMoveHandler = function (evt) {
     evt.preventDefault();
-    activateMap();
+
+    if (evt.clientY < 100 || evt.clientY > 500) {
+      return;
+    }
 
     var shift = {
       x: mainPinCoords.x - evt.clientX,
@@ -74,7 +78,10 @@
 
     mainPin.style.top = (mainPin.offsetTop - shift.y) + 'px';
     mainPin.style.left = (mainPin.offsetLeft - shift.x) + 'px';
+
+    adressInput.value = 'x: ' + mainPinCoords.x + ' y: ' + mainPinCoords.y;
   };
+
 
   var mainPinMousedownHandler = function (evt) {
     evt.preventDefault();
@@ -84,8 +91,8 @@
       y: evt.clientY
     };
 
-    mainPin.addEventListener('mousemove', mainPinMousemoveHandler);
-    mainPin.addEventListener('mouseup', mainPinMouseupHandler);
+    document.addEventListener('mousemove', mainPinMouseMoveHandler);
+    document.addEventListener('mouseup', mainPinMouseUpHandler);
   };
 
   mainPin.addEventListener('mousedown', mainPinMousedownHandler);
