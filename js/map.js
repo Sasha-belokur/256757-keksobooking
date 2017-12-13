@@ -60,14 +60,21 @@
     map.classList.remove('map--faded');
   };
 
+  var mainPinMouseUpDragHandler = function () {
+
+    document.removeEventListener('mousemove', mainPinMouseMoveHandler);
+    document.removeEventListener('mouseup', mainPinMouseUpDragHandler);
+  };
+
   var mainPinMouseUpHandler = function (evt) {
     evt.preventDefault();
 
     activateMap();
     renderPins(window.data.advertisements);
+    mainPin.style.zIndex = '1000';
 
-    document.removeEventListener('mousemove', mainPinMouseMoveHandler);
-    document.removeEventListener('mouseup', mainPinMouseUpHandler);
+    mainPin.removeEventListener('mouseup', mainPinMouseUpHandler);
+    mainPin.addEventListener('mousedown', mainPinMousedownHandler);
   };
 
   var mainPinMouseMoveHandler = function (evt) {
@@ -103,8 +110,9 @@
     };
 
     document.addEventListener('mousemove', mainPinMouseMoveHandler);
-    document.addEventListener('mouseup', mainPinMouseUpHandler);
+    document.addEventListener('mouseup', mainPinMouseUpDragHandler);
   };
 
-  mainPin.addEventListener('mousedown', mainPinMousedownHandler);
+
+  mainPin.addEventListener('mouseup', mainPinMouseUpHandler);
 })();
