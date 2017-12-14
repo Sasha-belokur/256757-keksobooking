@@ -2,9 +2,11 @@
 (function () {
   var timeInInput = document.querySelector('#timein');
   var timeOutInput = document.querySelector('#timeout');
-  var FLAT_MIN_PRICE = 1000;
-  var HOUSE_MIN_PRICEF = 5000;
-  var PALACE_MIN_PRICE = 1000;
+  var apartmentType = document.querySelector('#type');
+  var pricePerNight = document.querySelector('#price');
+  var TIME_INPUT_VALUES = ['12:00', '13:00', '14:00'];
+  var HOUSING_TYPES = ['flat', 'bungalo', 'house', 'palace'];
+  var HOUSING_MIN_PRICES = ['1000', '0', '5000', '10000'];
   var MAP_ROOMS_TO_GUESTS = {
     '1': ['1'],
     '2': ['1', '2'],
@@ -12,50 +14,24 @@
     '100': ['0']
   };
 
-  var alignTimeIn = function () {
-    timeInInput.value = timeOutInput.value;
+  var syncValues = function (element, value) {
+    element.value = value;
   };
 
-  var alignTimeOut = function () {
-    timeOutInput.value = timeInInput.value;
+  var timeOutInputHandler = function () {
+    window.synchronizeFields(timeOutInput, timeInInput, TIME_INPUT_VALUES, TIME_INPUT_VALUES, syncValues);
   };
 
-  var timeInputHandler = function (evt) {
-    var input = evt.currentTarget;
-
-    if (input.name === 'timein') {
-      alignTimeOut();
-    } else if (input.name === 'timeout') {
-      alignTimeIn();
-    }
+  var timeInInputHandler = function () {
+    window.synchronizeFields(timeInInput, timeOutInput, TIME_INPUT_VALUES, TIME_INPUT_VALUES, syncValues);
   };
 
-  var setMinPrice = function (price) {
-    var priceInput = document.querySelector('#price');
-
-    priceInput.setAttribute('min', price);
+  var syncValueWithMin = function (element, value) {
+    element.min = value;
   };
 
-  var typeInputHandler = function (evt) {
-    var type = evt.currentTarget.value;
-    var minPrice;
-
-    switch (type) {
-      case 'flat':
-        minPrice = FLAT_MIN_PRICE;
-        break;
-      case 'house':
-        minPrice = HOUSE_MIN_PRICEF;
-        break;
-      case 'palace':
-        minPrice = PALACE_MIN_PRICE;
-        break;
-      default:
-        minPrice = 0;
-        break;
-    }
-
-    setMinPrice(minPrice);
+  var typeInputHandler = function () {
+    window.synchronizeFields(apartmentType, pricePerNight, HOUSING_TYPES, HOUSING_MIN_PRICES, syncValueWithMin);
   };
 
   var changeCapacityOptions = function (rooms) {
@@ -144,8 +120,8 @@
     var titleInput = document.querySelector('#title');
     var priceInput = document.querySelector('#price');
 
-    timeInInput.addEventListener('input', timeInputHandler);
-    timeOutInput.addEventListener('input', timeInputHandler);
+    timeInInput.addEventListener('input', timeInInputHandler);
+    timeOutInput.addEventListener('input', timeOutInputHandler);
 
     typeInput.addEventListener('input', typeInputHandler);
     roomsInput.addEventListener('input', roomsInputHandler);
