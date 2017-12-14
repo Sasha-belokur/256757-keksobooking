@@ -1,11 +1,12 @@
 'use strict';
 (function () {
   var synchronizeFields = function (firstField, secondField, firstFieldValues, secondFieldValues, syncFunction) {
-    var firstFieldIndex = firstFieldValues.indexOf(firstField.value);
-    var secondFieldValue = secondFieldValues[firstFieldIndex];
+    firstField.addEventListener('change', function () {
+      var firstFieldIndex = firstFieldValues.indexOf(firstField.value);
+      var secondFieldValue = secondFieldValues[firstFieldIndex];
 
-    syncFunction(secondField, secondFieldValue);
+      syncFunction(secondField, secondFieldValue);
+    });
   };
-
   window.synchronizeFields = synchronizeFields;
 })();
