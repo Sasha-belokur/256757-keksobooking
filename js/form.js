@@ -82,7 +82,7 @@
   var priceInputHandler = function (evt) {
     var input = evt.currentTarget;
     var minPrice = input.min;
-    
+
     if (minPrice && input.value < minPrice) {
       input.style.border = '1px solid red';
       input.setCustomValidity('Цена должна быть не менее ' + minPrice);
@@ -107,9 +107,11 @@
   };
 
   var formSubmitHandler = function (evt) {
-    var data = new FormData(evt.currentTarget);
+    var form = evt.currentTarget;
+    var data = new FormData(form);
     window.backend.save(data, showSuccessMessage, window.backend.errorHandler);
 
+    form.reset();
     evt.preventDefault();
   };
 
