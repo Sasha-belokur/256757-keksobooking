@@ -82,7 +82,7 @@
   var priceInputHandler = function (evt) {
     var input = evt.currentTarget;
     var minPrice = input.min;
-
+    
     if (minPrice && input.value < minPrice) {
       input.style.border = '1px solid red';
       input.setCustomValidity('Цена должна быть не менее ' + minPrice);
@@ -102,10 +102,24 @@
     });
   };
 
+  var showSuccessMessage = function () {
+    console.log('everythins\'s fine');
+  };
+
+  var formSubmitHandler = function (evt) {
+    var data = new FormData(evt.currentTarget);
+    window.backend.save(data, showSuccessMessage, window.backend.errorHandler);
+
+    evt.preventDefault();
+  };
+
   var addEventListeners = function () {
+    var form = document.querySelector('.notice__form');
     var roomsInput = document.querySelector('#room_number');
     var titleInput = document.querySelector('#title');
     var priceInput = document.querySelector('#price');
+
+    form.addEventListener('submit', formSubmitHandler);
 
     roomsInput.addEventListener('input', roomsInputHandler);
 
