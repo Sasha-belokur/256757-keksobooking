@@ -102,7 +102,6 @@
     });
   };
 
-  
   var formSubmitHandler = function (evt) {
     var form = evt.currentTarget;
     var data = new FormData(form);
