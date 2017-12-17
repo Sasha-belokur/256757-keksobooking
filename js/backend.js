@@ -44,13 +44,8 @@
     xhr.send(data);
   };
 
-  var errorHandler = function (msg) {
-    console.log(msg);
-  };
-
   window.backend = {
     load: load,
-    save: save,
-    errorHandler: errorHandler
+    save: save
   };
 })();

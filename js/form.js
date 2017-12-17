@@ -102,14 +102,11 @@
     });
   };
 
-  var showSuccessMessage = function () {
-    console.log('everythins\'s fine');
-  };
-
+  
   var formSubmitHandler = function (evt) {
     var form = evt.currentTarget;
     var data = new FormData(form);
-    window.backend.save(data, showSuccessMessage, window.backend.errorHandler);
+    window.backend.save(data, window.message.showSuccess, window.message.showError);
 
     form.reset();
     evt.preventDefault();
