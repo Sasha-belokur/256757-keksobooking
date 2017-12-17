@@ -1,10 +1,11 @@
+'use strict';
 (function () {
 	var createMessagePopup = function () {
 		var messagePopup = document.createElement('div');
 		var h2Element = document.createElement('h2');
 		var paragraphElemnt = document.createElement('p');
 		var buttonElement = document.createElement('button');
-		buttonElement.textContent = 'Хорошо.'
+		buttonElement.textContent = 'Хорошо.';
 
 		messagePopup.classList.add('message-popup');
 
@@ -17,12 +18,12 @@
 
 	var closeMessagePopup = function (popup) {
 		popup.remove();
-	}
+	};
 
 	var buttonClickHandler = function (evt) {
 		debugger;
 		closeMessagePopup(evt.target.parentNode);
-	}
+	};
 
 	var showSuccess = function () {
 		var messagePopup = createMessagePopup();
@@ -34,7 +35,7 @@
 		button.addEventListener('click', buttonClickHandler);
 
 		document.body.appendChild(messagePopup);
-	}
+	};
 
 	var showError = function (text) {
 		var messagePopup = createMessagePopup();
@@ -46,10 +47,10 @@
 		button.addEventListener('click', buttonClickHandler);
 
 		document.body.appendChild(messagePopup);
-	}
+	};
 
 	window.message = {
 		showSuccess: showSuccess,
 		showError: showError
-	}
+	};
 })();
