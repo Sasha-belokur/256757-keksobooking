@@ -39,7 +39,7 @@
 	var showError = function (text) {
 		var messagePopup = createMessagePopup();
 		messagePopup.classList.add('error');
-		messagePopup.querySelector('h2').textContent = "Упс ошибочка..."
+		messagePopup.querySelector('h2').textContent = 'Упс ошибочка...'
 		messagePopup.querySelector('p').textContent = text;
 
 		var button = messagePopup.querySelector('button');
