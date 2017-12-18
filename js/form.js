@@ -102,10 +102,22 @@
     });
   };
 
+  var formSubmitHandler = function (evt) {
+    var form = evt.currentTarget;
+    var data = new FormData(form);
+    window.backend.save(data, window.message.showSuccess, window.message.showError);
+
+    form.reset();
+    evt.preventDefault();
+  };
+
   var addEventListeners = function () {
+    var form = document.querySelector('.notice__form');
     var roomsInput = document.querySelector('#room_number');
     var titleInput = document.querySelector('#title');
     var priceInput = document.querySelector('#price');
+
+    form.addEventListener('submit', formSubmitHandler);
 
     roomsInput.addEventListener('input', roomsInputHandler);
 
