@@ -34,6 +34,8 @@
 
   var clearMapPins = function () {
     var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    window.pin.deactivate();
+    window.card.close();
 
     pins.forEach(function (pin) {
       pin.remove();
