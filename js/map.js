@@ -85,6 +85,7 @@
 
     activateMap();
     window.form.activate();
+    adressInput.value = 'x: ' + window.getComputedStyle(mainPin).left + ' y: ' + window.getComputedStyle(mainPin).top;
     renderPins(window.data.advertisements);
     mainPin.style.zIndex = '1000';
 
