@@ -1,8 +1,8 @@
 'use strict';
 (function () {
+  var ESC_KEYCODE = 27;
   var map = document.querySelector('.map');
   var mainPin = document.querySelector('.map__pin--main');
-  var ESC_KEYCODE = 27;
   var mainPinCoords = null;
   var adressInput = document.querySelector('#address');
   var filterForm = document.querySelector('.map__filters');

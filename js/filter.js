@@ -1,13 +1,13 @@
 'use strict';
 (function () {
+  var MIN_MID_PRICE = 10000;
+  var MAX_MID_PRICE = 50000;
+  var DEBOUNCE_INTERVAL = 500;
   var typeFilter = document.querySelector('#housing-type');
   var priceFilter = document.querySelector('#housing-price');
   var roomsFilter = document.querySelector('#housing-rooms');
   var guestsFilter = document.querySelector('#housing-guests');
   var features = Array.from(document.querySelectorAll('#housing-features input'));
-  var MIN_MID_PRICE = 10000;
-  var MAX_MID_PRICE = 50000;
-  var DEBOUNCE_INTERVAL = 500;
   var lastTimeout;
 
   var isFitType = function (ad) {
