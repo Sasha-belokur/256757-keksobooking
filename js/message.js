@@ -2,16 +2,16 @@
 (function () {
   var createMessagePopup = function () {
     var messagePopup = document.createElement('div');
-    var h2Element = document.createElement('h2');
-    var paragraphElemnt = document.createElement('p');
-    var buttonElement = document.createElement('button');
-    buttonElement.textContent = 'Хорошо.';
+    var h2 = document.createElement('h2');
+    var paragraph = document.createElement('p');
+    var button = document.createElement('button');
+    button.textContent = 'Хорошо.';
 
     messagePopup.classList.add('message-popup');
 
-    messagePopup.appendChild(h2Element);
-    messagePopup.appendChild(paragraphElemnt);
-    messagePopup.appendChild(buttonElement);
+    messagePopup.appendChild(h2);
+    messagePopup.appendChild(paragraph);
+    messagePopup.appendChild(button);
 
     return messagePopup;
   };
