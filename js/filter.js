@@ -7,6 +7,8 @@
   var features = Array.from(document.querySelectorAll('#housing-features input'));
   var MIN_MID_PRICE = 10000;
   var MAX_MID_PRICE = 50000;
+  var DEBOUNCE_INTERVAL = 500;
+  var lastTimeout;
 
   var isFitType = function (ad) {
     return typeFilter.value === 'any' ? true : ad.offer.type === typeFilter.value;
@@ -62,8 +64,16 @@
         .filter(isFitFeatures);
   };
 
+  var debounce = function (fun) {
+    if (lastTimeout) {
+      window.clearTimeout(lastTimeout);
+    }
+    lastTimeout = window.setTimeout(fun, DEBOUNCE_INTERVAL);
+  };
+
   window.filter = {
-    getAds: getAds
+    getAds: getAds,
+    debounce: debounce
   };
 })();
 

@@ -40,10 +40,14 @@
     });
   };
 
-  var filterFormChangeHandler = function () {
+  var refreshMapPins = function () {
     var filteredAds = window.filter.getAds();
     clearMapPins();
     renderPins(filteredAds);
+  };
+
+  var filterFormChangeHandler = function () {
+    window.filter.debounce(refreshMapPins);
   };
 
   var closeBtnClickHandler = function () {
