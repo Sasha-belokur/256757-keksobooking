@@ -105,9 +105,12 @@
   var formSubmitHandler = function (evt) {
     var form = evt.currentTarget;
     var data = new FormData(form);
+    var adressInput = document.querySelector('#address');
+    var adressLastValue = adressInput.value;
     window.backend.save(data, window.message.showSuccess, window.message.showError);
 
     form.reset();
+    adressInput.value = adressLastValue;
     evt.preventDefault();
   };
 
