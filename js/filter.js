@@ -53,7 +53,7 @@
     return window.util.isSubArray(checkedFeatures, ad.offer.features);
   };
 
-  var getPins = function () {
+  var getAds = function () {
     return window.data.advertisements
         .filter(isFitType)
         .filter(isFitPrice)
@@ -63,7 +63,7 @@
   };
 
   window.filter = {
-    getPins: getPins
+    getAds: getAds
   };
 })();
 
