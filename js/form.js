@@ -1,9 +1,5 @@
 'use strict';
 (function () {
-  var timeInInput = document.querySelector('#timein');
-  var timeOutInput = document.querySelector('#timeout');
-  var apartmentType = document.querySelector('#type');
-  var pricePerNight = document.querySelector('#price');
   var TIME_INPUT_VALUES = ['12:00', '13:00', '14:00'];
   var HOUSING_TYPES = ['flat', 'bungalo', 'house', 'palace'];
   var HOUSING_MIN_PRICES = ['1000', '0', '5000', '10000'];
@@ -13,6 +9,10 @@
     '3': ['1', '2', '3'],
     '100': ['0']
   };
+  var timeInInput = document.querySelector('#timein');
+  var timeOutInput = document.querySelector('#timeout');
+  var apartmentType = document.querySelector('#type');
+  var pricePerNight = document.querySelector('#price');
 
   var syncValues = function (element, value) {
     element.value = value;

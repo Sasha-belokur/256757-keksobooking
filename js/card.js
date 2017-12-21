@@ -45,8 +45,10 @@
   };
 
   var close = function () {
-    activePopup.remove();
-    activePopup = null;
+    if (activePopup) {
+      activePopup.remove();
+      activePopup = null;
+    }
   };
 
   window.card = {

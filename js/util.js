@@ -22,8 +22,15 @@
     return Math.floor(min + Math.random() * (max + 1 - min));
   };
 
+  function isSubArray(subArray, array) {
+    return subArray.every(function (value) {
+      return array.includes(value);
+    });
+  }
+
   window.util = {
     shuffleArray: shuffleArray,
-    getRandomNum: getRandomNum
+    getRandomNum: getRandomNum,
+    isSubArray: isSubArray
   };
 })();

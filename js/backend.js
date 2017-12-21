@@ -3,27 +3,34 @@
 (function () {
   var SERVER_URL = 'https://1510.dump.academy/keksobooking';
   var REQUEST_TIMEOUT = 15000;
+  var SUCCESS_STATUS = 200;
 
   var setup = function (onSuccess, onError) {
     var xhr = new XMLHttpRequest();
 
     xhr.responseType = 'json';
 
-    xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+    var xhrLoadHandler = function () {
+      if (xhr.status === SUCCESS_STATUS) {
         onSuccess(xhr.response);
       } else {
         onError('Неизвестный статус: ' + xhr.status + ' ' + xhr.statusText);
       }
-    });
+    };
 
-    xhr.addEventListener('error', function () {
+    var xhrErrorHandler = function () {
       onError('Произошла ошибка соединения');
-    });
+    };
 
-    xhr.addEventListener('timeout', function () {
+    var xhrTimeoutHandler = function () {
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
-    });
+    };
+
+    xhr.addEventListener('load', xhrLoadHandler);
+
+    xhr.addEventListener('error', xhrErrorHandler);
+
+    xhr.addEventListener('timeout', xhrTimeoutHandler);
 
     xhr.timeout = REQUEST_TIMEOUT;
 

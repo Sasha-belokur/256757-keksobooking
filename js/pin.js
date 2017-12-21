@@ -4,8 +4,10 @@
   var activePin = null;
 
   var deactivate = function () {
-    activePin.classList.remove('map__pin--active');
-    activePin = null;
+    if (activePin) {
+      activePin.classList.remove('map__pin--active');
+      activePin = null;
+    }
   };
 
   var activate = function (pin) {
