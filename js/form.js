@@ -9,10 +9,11 @@
     '3': ['1', '2', '3'],
     '100': ['0']
   };
-  var timeInInput = document.querySelector('#timein');
-  var timeOutInput = document.querySelector('#timeout');
-  var apartmentType = document.querySelector('#type');
-  var pricePerNight = document.querySelector('#price');
+  var form = document.querySelector('.notice__form');
+  var timeInInput = form.querySelector('#timein');
+  var timeOutInput = form.querySelector('#timeout');
+  var apartmentType = form.querySelector('#type');
+  var pricePerNight = form.querySelector('#price');
 
   var syncValues = function (element, value) {
     element.value = value;
@@ -93,7 +94,6 @@
   };
 
   var activate = function () {
-    var form = document.querySelector('.notice__form');
     var formfieldsets = document.querySelectorAll('fieldset');
 
     form.classList.remove('notice__form--disabled');
