@@ -1,5 +1,6 @@
 'use strict';
 (function () {
+  var DEFAULT_ROOMS_AMOUNT = 1;
   var TIME_INPUT_VALUES = ['12:00', '13:00', '14:00'];
   var HOUSING_TYPES = ['flat', 'bungalo', 'house', 'palace'];
   var HOUSING_MIN_PRICES = ['1000', '0', '5000', '10000'];
@@ -9,10 +10,11 @@
     '3': ['1', '2', '3'],
     '100': ['0']
   };
-  var timeInInput = document.querySelector('#timein');
-  var timeOutInput = document.querySelector('#timeout');
-  var apartmentType = document.querySelector('#type');
-  var pricePerNight = document.querySelector('#price');
+  var form = document.querySelector('.notice__form');
+  var timeInInput = form.querySelector('#timein');
+  var timeOutInput = form.querySelector('#timeout');
+  var apartmentType = form.querySelector('#type');
+  var pricePerNight = form.querySelector('#price');
 
   var syncValues = function (element, value) {
     element.value = value;
@@ -23,7 +25,7 @@
   };
 
   var changeCapacityOptions = function (rooms) {
-    var capacityOptions = Array.from(document.querySelector('#capacity'));
+    var capacityOptions = Array.from(form.querySelector('#capacity'));
 
     capacityOptions.forEach(function (option) {
       if (MAP_ROOMS_TO_GUESTS[rooms].includes(option.value)) {
@@ -93,8 +95,7 @@
   };
 
   var activate = function () {
-    var form = document.querySelector('.notice__form');
-    var formfieldsets = document.querySelectorAll('fieldset');
+    var formfieldsets = form.querySelectorAll('fieldset');
 
     form.classList.remove('notice__form--disabled');
     formfieldsets.forEach(function (fieldset) {
@@ -103,22 +104,21 @@
   };
 
   var formSubmitHandler = function (evt) {
-    var form = evt.currentTarget;
     var data = new FormData(form);
-    var adressInput = document.querySelector('#address');
+    var adressInput = form.querySelector('#address');
     var adressLastValue = adressInput.value;
     window.backend.save(data, window.message.showSuccess, window.message.showError);
 
     form.reset();
+    changeCapacityOptions(DEFAULT_ROOMS_AMOUNT);
     adressInput.value = adressLastValue;
     evt.preventDefault();
   };
 
   var addEventListeners = function () {
-    var form = document.querySelector('.notice__form');
-    var roomsInput = document.querySelector('#room_number');
-    var titleInput = document.querySelector('#title');
-    var priceInput = document.querySelector('#price');
+    var roomsInput = form.querySelector('#room_number');
+    var titleInput = form.querySelector('#title');
+    var priceInput = form.querySelector('#price');
 
     form.addEventListener('submit', formSubmitHandler);
 
