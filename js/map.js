@@ -4,7 +4,7 @@
   var MAP_EDGES = {
     top: 100,
     bottom: 500,
-  }
+  };
   var map = document.querySelector('.map');
   var mainPin = document.querySelector('.map__pin--main');
   var mainPinCoords = null;

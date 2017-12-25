@@ -25,7 +25,7 @@
   };
 
   var changeCapacityOptions = function (rooms) {
-    var capacityOptions = Array.from(document.querySelector('#capacity'));
+    var capacityOptions = Array.from(form.querySelector('#capacity'));
 
     capacityOptions.forEach(function (option) {
       if (MAP_ROOMS_TO_GUESTS[rooms].includes(option.value)) {
@@ -95,7 +95,7 @@
   };
 
   var activate = function () {
-    var formfieldsets = document.querySelectorAll('fieldset');
+    var formfieldsets = form.querySelectorAll('fieldset');
 
     form.classList.remove('notice__form--disabled');
     formfieldsets.forEach(function (fieldset) {
@@ -104,9 +104,8 @@
   };
 
   var formSubmitHandler = function (evt) {
-    var form = evt.currentTarget;
     var data = new FormData(form);
-    var adressInput = document.querySelector('#address');
+    var adressInput = form.querySelector('#address');
     var adressLastValue = adressInput.value;
     window.backend.save(data, window.message.showSuccess, window.message.showError);
 
@@ -117,10 +116,9 @@
   };
 
   var addEventListeners = function () {
-    var form = document.querySelector('.notice__form');
-    var roomsInput = document.querySelector('#room_number');
-    var titleInput = document.querySelector('#title');
-    var priceInput = document.querySelector('#price');
+    var roomsInput = form.querySelector('#room_number');
+    var titleInput = form.querySelector('#title');
+    var priceInput = form.querySelector('#price');
 
     form.addEventListener('submit', formSubmitHandler);
 

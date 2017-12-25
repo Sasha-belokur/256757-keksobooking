@@ -3,7 +3,7 @@
   var MIN_MID_PRICE = 10000;
   var MAX_MID_PRICE = 50000;
   var DEBOUNCE_INTERVAL = 500;
-  var filterForm = document.querySelector('.map__filters')
+  var filterForm = document.querySelector('.map__filters');
   var typeFilter = filterForm.querySelector('#housing-type');
   var priceFilter = filterForm.querySelector('#housing-price');
   var roomsFilter = filterForm.querySelector('#housing-rooms');
