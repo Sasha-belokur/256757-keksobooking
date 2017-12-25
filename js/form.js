@@ -1,5 +1,6 @@
 'use strict';
 (function () {
+  var DEFAULT_ROOMS_AMOUNT = 1;
   var TIME_INPUT_VALUES = ['12:00', '13:00', '14:00'];
   var HOUSING_TYPES = ['flat', 'bungalo', 'house', 'palace'];
   var HOUSING_MIN_PRICES = ['1000', '0', '5000', '10000'];
@@ -110,6 +111,7 @@
     window.backend.save(data, window.message.showSuccess, window.message.showError);
 
     form.reset();
+    changeCapacityOptions(DEFAULT_ROOMS_AMOUNT);
     adressInput.value = adressLastValue;
     evt.preventDefault();
   };
