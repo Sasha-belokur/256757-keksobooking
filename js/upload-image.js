@@ -6,9 +6,9 @@
   var avatar = form.querySelector('.notice__preview img');
   var previewImagesInput = form.querySelector('.form__photo-container #images');
   var previewContainer = form.querySelector('.form__photo-container');
-  previewImagesInput.multiple = true; 
+  previewImagesInput.multiple = true;
 
-  var isCorrectFormat = function(file) {
+  var isCorrectFormat = function (file) {
     var fileName = file.name.toLowerCase();
     var result = FILE_TYPES.some(function (it) {
       return fileName.endsWith(it);
