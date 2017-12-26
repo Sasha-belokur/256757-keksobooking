@@ -2,8 +2,8 @@
 (function () {
   var ESC_KEYCODE = 27;
   var MAP_EDGES = {
-    top: 100,
-    bottom: 500,
+    TOP: 100,
+    BOTTOM: 500
   };
   var map = document.querySelector('.map');
   var mainPin = document.querySelector('.map__pin--main');
@@ -11,8 +11,8 @@
   var adressInput = document.querySelector('#address');
   var filterForm = document.querySelector('.map__filters');
 
-  MAP_EDGES.left = map.offsetLeft + mainPin.offsetWidth / 2;
-  MAP_EDGES.right = map.offsetLeft + map.offsetWidth - mainPin.offsetWidth / 2;
+  MAP_EDGES.LEFT = map.offsetLeft + mainPin.offsetWidth / 2;
+  MAP_EDGES.RIGHT = map.offsetLeft + map.offsetWidth - mainPin.offsetWidth / 2;
 
   var pinClickHandler = function (evt) {
     var pin = evt.currentTarget;
@@ -103,7 +103,7 @@
   var mainPinMouseMoveHandler = function (evt) {
     evt.preventDefault();
 
-    if (evt.clientY < MAP_EDGES.top || evt.clientY > MAP_EDGES.bottom || evt.clientX > MAP_EDGES.right || evt.clientX < MAP_EDGES.left) {
+    if (evt.clientY < MAP_EDGES.TOP || evt.clientY > MAP_EDGES.BOTTOM || evt.clientX > MAP_EDGES.RIGHT || evt.clientX < MAP_EDGES.LEFT) {
       return;
     }
 

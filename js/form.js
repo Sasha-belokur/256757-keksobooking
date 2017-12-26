@@ -110,6 +110,7 @@
     window.backend.save(data, window.message.showSuccess, window.message.showError);
 
     form.reset();
+    window.uploadImage.clear();
     changeCapacityOptions(DEFAULT_ROOMS_AMOUNT);
     adressInput.value = adressLastValue;
     evt.preventDefault();
