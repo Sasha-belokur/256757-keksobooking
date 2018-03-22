@@ -1,8 +1,9 @@
 'use strict';
 
 (function () {
-  var SERVER_URL = 'https://1510.dump.academy/keksobooking';
-  var REQUEST_TIMEOUT = 15000;
+  var JSON_URL = 'https://api.myjson.com/bins/1bxl7n';
+  var SERVER_URL = 'https://js.dump.academy/keksobooking';
+  var REQUEST_TIMEOUT = 5000;
   var SUCCESS_STATUS = 200;
 
   var setup = function (onSuccess, onError) {
@@ -40,7 +41,7 @@
   var load = function (onLoad, onError) {
     var xhr = setup(onLoad, onError);
 
-    xhr.open('GET', SERVER_URL + '/data');
+    xhr.open('GET', JSON_URL);
     xhr.send();
   };
 

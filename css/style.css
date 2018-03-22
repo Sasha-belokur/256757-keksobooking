@@ -883,7 +883,7 @@ textarea:focus
 }
 
 .message-popup.success {
-  background-image: url('http://pluspng.com/img-png/success-png-success-icon-image-23194-400.png');
+  background-image: url('../img/success-icon.png');
   background-size: 200px auto;
   background-repeat: no-repeat;
   background-position: center 10px;
@@ -908,7 +908,7 @@ textarea:focus
 }
 
 .message-popup.error {
-  background-image: url('https://freeiconshop.com/wp-content/uploads/edd/error-flat.png');
+  background-image: url('../img/error-icon.png');
   background-size: 200px auto;
   background-repeat: no-repeat;
   background-position: center 10px;
